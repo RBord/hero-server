@@ -12,6 +12,8 @@ mongoose
 
 const express = require('express')
 const cors = require('cors')
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerUI = require('swagger-ui-express')
 
 const PORT = process.env.PORT || 5000
 
@@ -19,9 +21,30 @@ const superheroesRouter = require('./routes/api/superheroes')
 const imagesRouter = require('./routes/api/images')
 const app = express()
 
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Superheroes API',
+      version: '1.0.0',
+      description: 'A simple Express Superheroes API',
+    },
+    servers: [
+      {
+        url: 'http://localhost:5050',
+      },
+    ],
+  },
+  apis: ['./routes/api/*.js'],
+}
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions)
+console.log(swaggerDocs)
+
 app.use(cors())
 app.use(express.json())
 
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 app.use('/api/superheroes', superheroesRouter)
 app.use('/api/images', imagesRouter)
 app.use(express.static('public'))
