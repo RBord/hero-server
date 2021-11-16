@@ -32,6 +32,11 @@ const swaggerOptions = {
     servers: [
       {
         url: 'http://localhost:5050',
+        description: 'development',
+      },
+      {
+        url: 'https://create-hero-app.herokuapp.com',
+        description: 'production',
       },
     ],
   },
