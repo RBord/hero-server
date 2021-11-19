@@ -44,7 +44,6 @@ const swaggerOptions = {
 }
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions)
-console.log(swaggerDocs)
 
 app.use(cors())
 app.use(express.json())
