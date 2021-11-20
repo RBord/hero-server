@@ -28,40 +28,47 @@
 "paths": {
     "/superheroes": {
         "get": {
-        "tags": [
-            "superhero"
-        ],
-        "summary":"Get all heroes from Base",
-        "description":"Get all superheroes",
-        "operationId":"getAllSuperheroes",
-        "produces":[
-            "application/json"
-        ],
-        "parameters":[],
-        "responses":{
-            "200":{
-                "description":"Success! All heroes here!",
-                "schema":{
-                    "type":"object",
-                    "properties":{
-                        "status":{
-                            "type":"sting",
-                            "example":"success"
-                        },
-                        "code":{
-                            "type":"number",
-                            "example": 200
-                        },
-                        "data":{
-                            "type":"array",
-                            "items":{
-                                "$ref":"#definitions/Superhero"
+            "tags": [
+                "superhero"
+            ],
+            "summary":"Get all heroes from Base",
+            "description":"Get all superheroes",
+            "operationId":"getAllSuperheroes",
+            "produces":[
+                "application/json"
+            ],
+            "parameters":[],
+            "responses":{
+                "200":{
+                    "description":"Success! All heroes here!",
+                    "schema":{
+                        "type":"object",
+                        "properties":{
+                            "status":{
+                                "type":"sting",
+                                "example":"success"
+                            },
+                            "code":{
+                                "type":"number",
+                                "example": 200
+                            },
+                            "data":{
+                                "type":"array",
+                                "items":{
+                                    "$ref":"#definitions/Superhero"
+                                }
                             }
                         }
                     }
+                },
+                "400":{
+                    "description":"Some error!",
+                    "schema":{
+                        "$ref":"#definitions/Error"
+                    }
                 }
             }
-        }},
+        },
         "post":{
             "tags": [
                 "superhero"
@@ -78,7 +85,21 @@
                 "required": true,
                 "schema":{
                     "type":"object",
-                    "$ref":"#definitions/Superhero"
+                    "properties":{
+                        "nickname":{
+                            "type":"string",
+                            "example":"Iron man"
+                        },
+                        "real_name":{
+                            "type":"string",
+                            "example":"Tony Stark"
+                        },
+                        "superpowers":{
+                            "type":"string",
+                            "example":"Superpowers"
+                        }
+
+                    }
                 }
             }],
             "responses":{
@@ -103,6 +124,181 @@
                             }
                         }
                     }
+                },
+                "400":{
+                    "description":"Some error!",
+                    "schema":{
+                        "$ref":"#definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/superheroes/{id}":{
+        "get":{
+            "tags":[
+                "superhero"
+            ],
+            "summary":"Get Hero by Id",
+            "description":"Get one hero by id",
+            "operationId":"getSuperheroById",
+            "produces":[
+                "application/json"
+            ],
+            "parameters":[
+                {
+                    "name":"id",
+                    "in":"path",
+                    "required": true,
+                    "type":"string"
+                }
+            ],
+            "responses":{
+                "200":{
+                    "description":"Success! Hero here!",
+                    "schema":{
+                        "type":"object",
+                        "properties":{
+                            "status":{
+                                "type":"sting",
+                                "example":"success"
+                            },
+                            "code":{
+                                "type":"number",
+                                "example": 200
+                            },
+                            "data":{
+                                "type":"array",
+                                "items":{
+                                    "$ref":"#definitions/Superhero"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description":"Some error!",
+                    "schema":{
+                        "$ref":"#definitions/Error"
+                    }
+                }
+            }
+
+        },
+        "delete":{
+            "tags":[
+                "superhero"
+            ],
+            "summary":"Delete Hero by Id",
+            "description":"Delete one hero by id",
+            "operationId":"deleteSuperhero",
+            "produces":[
+                "application/json"
+            ],
+            "parameters":[
+                {
+                    "name":"id",
+                    "in":"path",
+                    "required": true,
+                    "type":"string"
+                }
+            ],
+            "responses":{
+                "200":{
+                    "description":"Success! Hero deleted from Base!",
+                    "schema":{
+                        "type":"object",
+                        "properties":{
+                            "message":{
+                                "type":"sting",
+                                "example": "Success deleting!"
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description":"Some error!",
+                    "schema":{
+                        "$ref":"#definitions/Error"
+                    }
+                }
+            }
+        },
+        "patch":{
+            "tags":[
+                "superhero"
+            ],
+            "summary":"Update Hero by Id",
+            "description":"Update one hero by id",
+            "operationId":"updateSuperhero",
+            "produces":[
+                "application/json"
+            ],
+            "parameters":[
+                {
+                    "name":"id",
+                    "in":"path",
+                    "required": true,
+                    "type":"string"
+                },
+                {
+                    "name":"body",
+                    "in":"body",
+                    "schema":{
+                        "type":"object",
+                        "properties":{
+                            "nickname":{
+                                "type":"string",
+                                "example":"New nickname"
+                            },
+                            "real_name":{
+                                "type":"string",
+                                "example":"New real name"
+                            },
+                            "superpowers":{
+                                "type":"string",
+                                "example":"New superpowers"
+                            },
+                            "catch_phrase":{
+                                "type":"string",
+                                "example":"New catch phrase"
+                            },
+                            "origin_description":{
+                                "type":"string",
+                                "example":"New origin description"
+                            }
+                        }
+                    }
+                }
+            ],
+            "responses":{
+                "200":{
+                    "description":"Success! Hero updated!",
+                    "schema":{
+                        "type":"object",
+                        "properties":{
+                            "status":{
+                                "type":"sting",
+                                "example":"success"
+                            },
+                            "code":{
+                                "type":"number",
+                                "example": 201
+                            },
+                            "data":{
+                                "type":"array",
+                                "items":{
+                                    "$ref":"#definitions/Superhero"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description":"Some error!",
+                    "schema":{
+                        "$ref":"#definitions/Error"
+                    }
                 }
             }
         }
@@ -112,10 +308,6 @@
     "Superhero":{
         "type":"object",
         "properties":{
-            "_id":{
-                "type":"sting",
-                "description":"Auto generated by MongoDB"
-            },
             "nickname":{
                 "type":"sting",
                 "example":"The nickname of hero",
@@ -146,6 +338,15 @@
                 }
             }
         }
-    }
+    },
+    "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Error message"
+          }
+        }
+      }
 }
 }
