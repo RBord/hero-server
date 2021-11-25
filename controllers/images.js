@@ -8,7 +8,6 @@ const addImages = async (req, res) => {
   const { id } = req.params
   const { path: tempDir, originalname } = req.file
   const avatarsDir = path.join(process.cwd(), 'public/images')
-  consolelog(avatarsDir)
   Jimp.read(tempDir, (err, lenna) => {
     if (err) throw err
     lenna.resize(300, 200).quality(60)
