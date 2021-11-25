@@ -19,7 +19,7 @@ const tempDir = path.join(process.cwd(), 'temp')
 const swaggerUI = require('swagger-ui-express')
 const swaggerDocs = require('./swagger.json')
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5050
 
 const superheroesRouter = require('./routes/api/superheroes')
 const imagesRouter = require('./routes/api/images')
@@ -31,7 +31,7 @@ app.use(express.json())
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 app.use('/api/superheroes', superheroesRouter)
 app.use('/api/images', imagesRouter)
-app.use(express.static('public'))
+app.use(express.static('public/images'))
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })
