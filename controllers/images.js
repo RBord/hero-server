@@ -18,7 +18,7 @@ const addImages = async (req, res) => {
     const newAvatarName = `image-${id}.${extention}`
     const resultDir = path.join(avatarsDir, newAvatarName)
     await fs.rename(tempDir, resultDir)
-    const avatar = path.join('/public/images', newAvatarName)
+    const avatar = path.join('/images', newAvatarName)
     await Superhero.findByIdAndUpdate(id, { images: avatar })
     res.json({
       description,
