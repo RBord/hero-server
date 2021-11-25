@@ -15,11 +15,12 @@ const cors = require('cors')
 const path = require('path')
 const fs = require('fs').promises
 const tempDir = path.join(process.cwd(), 'temp')
+const uploadDir = path.join(process.cwd(), 'public/images')
 
 const swaggerUI = require('swagger-ui-express')
 const swaggerDocs = require('./swagger.json')
 
-const PORT = process.env.PORT || 5050
+const PORT = process.env.PORT || 5000
 
 const superheroesRouter = require('./routes/api/superheroes')
 const imagesRouter = require('./routes/api/images')
@@ -56,6 +57,6 @@ const createFolderIsNotExist = async (folder) => {
 }
 
 app.listen(PORT, () => {
-  createFolderIsNotExist(tempDir)
+  createFolderIsNotExist(tempDir), createFolderIsNotExist(uploadDir)
   console.log(`Server running on port ${PORT}!`)
 })
