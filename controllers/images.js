@@ -8,6 +8,7 @@ const addImages = async (req, res) => {
   const { id } = req.params
   const { path: tempDir, originalname } = req.file
   const avatarsDir = path.join(process.cwd(), 'public/images')
+  consolelog(avatarsDir)
   Jimp.read(tempDir, (err, lenna) => {
     if (err) throw err
     lenna.resize(300, 200).quality(60)
@@ -17,7 +18,7 @@ const addImages = async (req, res) => {
     const newAvatarName = `image-${id}.${extention}`
     const resultDir = path.join(avatarsDir, newAvatarName)
     await fs.rename(tempDir, resultDir)
-    const avatar = path.join('/images', newAvatarName)
+    const avatar = path.join('/public/images', newAvatarName)
     await Superhero.findByIdAndUpdate(id, { images: avatar })
     res.json({
       description,

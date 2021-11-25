@@ -31,7 +31,7 @@ app.use(express.json())
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 app.use('/api/superheroes', superheroesRouter)
 app.use('/api/images', imagesRouter)
-app.use(express.static('public/images'))
+app.use(express.static('public'))
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })
