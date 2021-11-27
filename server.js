@@ -14,8 +14,9 @@ const express = require('express')
 const cors = require('cors')
 const path = require('path')
 const fs = require('fs').promises
-const tempDir = path.join(process.cwd(), 'temp')
-const uploadDir = path.join(process.cwd(), 'public/images')
+
+// const tempDir = path.join(process.cwd(), 'temp')
+// const uploadDir = path.join(process.cwd(), 'public/images')
 
 const swaggerUI = require('swagger-ui-express')
 const swaggerDocs = require('./swagger.json')
@@ -57,6 +58,6 @@ const createFolderIsNotExist = async (folder) => {
 }
 
 app.listen(PORT, () => {
-  createFolderIsNotExist(tempDir), createFolderIsNotExist(uploadDir)
-  console.log(`Server running on port ${PORT}!`)
+  createFolderIsNotExist('/temp'),
+    console.log(`Server running on port ${PORT}!`)
 })
