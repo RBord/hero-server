@@ -15,8 +15,8 @@ const cors = require('cors')
 const path = require('path')
 const fs = require('fs').promises
 
-// const tempDir = path.join(process.cwd(), 'temp')
-// const uploadDir = path.join(process.cwd(), 'public/images')
+const tempDir = path.join(process.cwd(), 'temp')
+const uploadDir = path.join(process.cwd(), 'public/images')
 
 const swaggerUI = require('swagger-ui-express')
 const swaggerDocs = require('./swagger.json')
@@ -33,7 +33,7 @@ app.use(express.json())
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 app.use('/api/superheroes', superheroesRouter)
 app.use('/api/images', imagesRouter)
-app.use(express.static('public'))
+app.use(express.static('./public'))
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })
@@ -58,6 +58,7 @@ const createFolderIsNotExist = async (folder) => {
 }
 
 app.listen(PORT, () => {
-  createFolderIsNotExist('/temp'),
+  createFolderIsNotExist(tempDir),
+    createFolderIsNotExist(uploadDir),
     console.log(`Server running on port ${PORT}!`)
 })
