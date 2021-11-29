@@ -10,15 +10,15 @@ const addImages = async (req, res) => {
   const file = req.file
   const result = await uploadFile(file)
 
-  const readStream = getFileStream(result.Key)
-  readStream.pipe(res)
   const image = path.join('/images', result.Key)
   try {
     await Superhero.findByIdAndUpdate(id, { images: image })
-    res.json({
-      status: 200,
-      images: image,
-    })
+    const readStream = getFileStream(result.Key)
+    readStream.pipe(res)
+    // res.json({
+    //   status: 200,
+    //   images: image,
+    // })
   } catch {}
 }
 
