@@ -1,9 +1,8 @@
 const { Superhero } = require('../models/superhero')
 const path = require('path')
 const fs = require('fs/promises')
-// const Jimp = require('jimp')
 
-const { uploadFile, getFile } = require('../middlewares/aws-s3')
+const { uploadFile } = require('../middlewares/aws-s3')
 
 const addImages = async (req, res) => {
   const { id } = req.params
@@ -17,9 +16,6 @@ const addImages = async (req, res) => {
     images: image,
   })
 }
-// const getImages = async (req, res) => {
-
-// }
 
 module.exports = {
   addImages,
