@@ -3,7 +3,7 @@ const path = require('path')
 const fs = require('fs/promises')
 // const Jimp = require('jimp')
 
-const { uploadFile, getFileStream } = require('../middlewares/aws-s3')
+const { uploadFile, getFile } = require('../middlewares/aws-s3')
 
 const addImages = async (req, res) => {
   const { id } = req.params
@@ -11,16 +11,15 @@ const addImages = async (req, res) => {
   const result = await uploadFile(file)
 
   const image = path.join('/images', result.Key)
-  try {
-    await Superhero.findByIdAndUpdate(id, { images: image })
-    const readStream = getFileStream(result.Key)
-    readStream.pipe(res)
-    // res.json({
-    //   status: 200,
-    //   images: image,
-    // })
-  } catch {}
+  await Superhero.findByIdAndUpdate(id, { images: image })
+  res.send({
+    status: 200,
+    images: image,
+  })
 }
+// const getImages = async (req, res) => {
+
+// }
 
 module.exports = {
   addImages,
