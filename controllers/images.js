@@ -9,16 +9,15 @@ const addImages = async (req, res) => {
   const { id } = req.params
   const file = req.file
   const result = await uploadFile(file)
-  const { path: tempDir } = req.file
+
   const readStream = getFileStream(result.Key)
   readStream.pipe(res)
+  const image = path.join('/images', result.Key)
   try {
-    const resultDir = path.join('public/images', result.Key)
-    await fs.rename(tempDir, resultDir)
-    await Superhero.findByIdAndUpdate(id, { images: resultDir })
+    await Superhero.findByIdAndUpdate(id, { images: image })
     res.json({
       status: 200,
-      images: resultDir,
+      images: image,
     })
   } catch {}
 }
